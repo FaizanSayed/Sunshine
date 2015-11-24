@@ -12,15 +12,19 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity {
 
     private final String LOG_TAG = MainActivity.class.getSimpleName();
+    private final String FORECASTFRAGMENT_TAG = "FFTAG";
+
+    private String mLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mLocation = Utility.getPreferredLocation(this);
         super.onCreate(savedInstanceState);
         Log.d(LOG_TAG, "onCreate method");
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.action_bar_container, new ForecastFragment())
+                    .add(R.id.action_bar_container, new ForecastFragment(), FORECASTFRAGMENT_TAG)
                     .commit();
         }
     }
@@ -77,38 +81,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
-        Log.d(LOG_TAG,"onStop method");
-        super.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        Log.d(LOG_TAG,"onDestroy method");
-        super.onDestroy();
-    }
-
-    @Override
-    protected void onPause() {
-        Log.d(LOG_TAG,"onPause method");
-        super.onPause();
-    }
-
-    @Override
     protected void onResume() {
-        Log.d(LOG_TAG,"onResume method");
         super.onResume();
-    }
-
-    @Override
-    protected void onStart() {
-        Log.d(LOG_TAG,"onStart method");
-        super.onStart();
-    }
-
-    @Override
-    protected void onRestart() {
-        Log.d(LOG_TAG,"onRestart method");
-        super.onRestart();
+        String location = Utility.getPreferredLocation(this);
+        //update the location in our second pane using the fragment manager
+        if (location != null && !location.equals(mLocation)) {
+            ForecastFragment ff = (ForecastFragment) getSupportFragmentManager().findFragmentByTag(FORECASTFRAGMENT_TAG);
+            if ( null != ff) {
+                ff.onLocationChanged();
+            }
+            mLocation = location;
+        }
     }
 }

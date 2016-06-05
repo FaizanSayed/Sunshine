@@ -5,11 +5,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewConfiguration;
+
+import com.example.faizan.sunshine.app.sync.SunshineSyncAdapter;
 
 import java.lang.reflect.Field;
 
@@ -48,6 +49,8 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
         ForecastFragment forcastFragment = ((ForecastFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.fragment_forecast));
         forcastFragment.setUseTodayLayout(!mTwoPane);
+
+        SunshineSyncAdapter.initializeSyncAdapter(this);
     }
 
 

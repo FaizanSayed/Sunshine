@@ -5,7 +5,7 @@
     <!-- This permission is necessary in order for Sunshine to perform network access. -->
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <!-- Permissions required by thi sync adapter -->
+    <!-- Permissions required by the sync adapter -->
     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
     <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
     <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
@@ -43,7 +43,7 @@
                 android:value="com.example.faizan.sunshine.app.MainActivity" />
         </activity>
         <provider
-            android:authorities="com.example.faizan.sunshine.app"
+            android:authorities="@string/content_authority"
             android:name=".data.WeatherProvider"
             android:exported="false"
             android:syncable="true" />
